@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VR2 : Votre Usine Logicielle sur Mesure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Modern Trust -->
+    <!-- Application Structure Plan: J'ai conçu une application web narrative à défilement vertical, d'une seule page. Cette structure guide l'utilisateur à travers l'argumentaire de VR2 de manière logique, du problème à la solution, en passant par la preuve et l'appel à l'action. Une barre de navigation fixe permet un accès direct à chaque section clé, offrant une flexibilité à l'utilisateur. Des éléments interactifs comme un calculateur de prix, un graphique dynamique, et un générateur de pitch personnalisé via l'API Gemini sont utilisés pour rendre les concepts clés plus tangibles et percutants. -->
+    <!-- Visualization & Content Choices: 
+        - Dilemme (Comparer) -> Cartes HTML/CSS côte à côte. Justification: Visuellement plus clair.
+        - 4 Piliers (Organiser) -> Grille de cartes HTML/CSS. Justification: Facile à scanner.
+        - Étude de Cas (Montrer le Changement) -> Graphique en courbe avec Chart.js. Justification: Visualise la croissance de manière spectaculaire.
+        - Tarifs (Informer/Engager) -> Calculateur avec curseur HTML/JS. Justification: Rend le prix concret et interactif.
+        - Pitch Personnalisé (Engager/Personnaliser) -> Formulaire + Appel API Gemini. Justification: Démontre la puissance de l'IA et offre une valeur immédiate et personnalisée au prospect, renforçant l'argumentaire de VR2.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB; /* gray-50 */
+            color: #1F2937; /* gray-800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+                max-height: 500px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color: #F59E0B; /* amber-500 */
+        }
+        .cta-button {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .card-hover {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .gemini-loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #F59E0B;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header / Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">VR<span class="text-amber-500">2</span></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#probleme" class="nav-link text-gray-600 font-semibold">Le Problème</a>
+                <a href="#solution" class="nav-link text-gray-600 font-semibold">La Solution</a>
+                <a href="#offre" class="nav-link text-gray-600 font-semibold">Notre Offre</a>
+                <a href="#etude-de-cas" class="nav-link text-gray-600 font-semibold">Étude de Cas</a>
+                <a href="#tarifs" class="nav-link text-gray-600 font-semibold">Tarifs</a>
+            </div>
+            <a href="#contact" class="hidden md:inline-block cta-button bg-amber-500 text-white font-bold py-2 px-6 rounded-lg">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">Ne laissez plus un logiciel standard <br class="hidden md:inline"> dicter les règles de votre croissance.</h1>
+                <p class="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">L'ère du logiciel maison est enfin accessible à tous. Nous sommes votre TSMC pour le Logiciel : nous fabriquons l'outil sur-mesure qui devient votre avantage compétitif.</p>
+                <div class="mt-8">
+                    <a href="#contact" class="cta-button bg-amber-500 text-white font-bold py-4 px-8 rounded-lg text-lg">Planifier un audit stratégique</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Le Problème -->
+        <section id="probleme" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Le choix impossible des entreprises en hyper-croissance</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Jusqu'à aujourd'hui, la croissance rapide forçait un compromis douloureux : la rigidité coûteuse des logiciels standards ou le risque élevé du développement maison. Ce choix freine votre agilité et détourne vos ressources de votre cœur de métier.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <h3 class="text-2xl font-bold text-gray-800">Option A : Le Logiciel Standard</h3>
+                        <p class="text-amber-600 font-semibold mt-1">(ERP/CRM type SAP, Oracle...)</p>
+                        <ul class="mt-6 space-y-4 text-gray-600">
+                            <li class="flex items-start"><span class="text-red-500 text-2xl mr-3">🐌</span> <div><span class="font-semibold">Rigidité :</span> Vous adaptez vos processus, si uniques, à un moule standard.</div></li>
+                            <li class="flex items-start"><span class="text-red-500 text-2xl mr-3">💰</span> <div><span class="font-semibold">Coûts Exorbitants :</span> Un gouffre financier entre licences, intégrations et consultants.</div></li>
+                            <li class="flex items-start"><span class="text-red-500 text-2xl mr-3">🔒</span> <div><span class="font-semibold">Dépendance :</span> Vous êtes prisonnier d'un écosystème fermé, incapable d'évoluer à votre rythme.</div></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <h3 class="text-2xl font-bold text-gray-800">Option B : Le Développement Maison</h3>
+                        <p class="text-amber-600 font-semibold mt-1">(Le projet interne)</p>
+                        <ul class="mt-6 space-y-4 text-gray-600">
+                            <li class="flex items-start"><span class="text-orange-500 text-2xl mr-3">🚧</span> <div><span class="font-semibold">Risque :</span> Des projets longs, coûteux, avec un fort taux d'échec et un résultat incertain.</div></li>
+                            <li class="flex items-start"><span class="text-orange-500 text-2xl mr-3">💸</span> <div><span class="font-semibold">CAPEX Massif :</span> Un investissement initial énorme qui pèse sur votre trésorerie.</div></li>
+                            <li class="flex items-start"><span class="text-orange-500 text-2xl mr-3">🧑‍💻</span> <div><span class="font-semibold">Talents Rares :</span> La guerre pour recruter et retenir une équipe de développeurs performante.</div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: La Solution VR2 -->
+        <section id="solution" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">La Révolution VR2 : Une Convergence de 4 Piliers</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Nous avons combiné quatre innovations technologiques et organisationnelles pour créer une offre qui était impossible hier. VR2 ne vous demande plus de choisir, mais vous offre le meilleur des deux mondes : la puissance du sur-mesure à la vitesse et au coût du service.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+                        <div class="text-4xl mb-4">🌐</div>
+                        <h3 class="text-xl font-bold mb-2">Fondation Universelle</h3>
+                        <p class="text-gray-600">Nous bâtissons sur **Google Workspace**, le système nerveux de votre entreprise pour l'identité, la sécurité et la collaboration.</p>
+                    </div>
+                    <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+                        <div class="text-4xl mb-4">🚀</div>
+                        <h3 class="text-xl font-bold mb-2">Accélérateur IA</h3>
+                        <p class="text-gray-600">Notre **IA** augmente nos développeurs. Nous codons plus vite des solutions plus intelligentes, rendant la concurrence avec SAP possible.</p>
+                    </div>
+                    <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+                         <div class="text-4xl mb-4">📱</div>
+                        <h3 class="text-xl font-bold mb-2">Accessibilité Totale</h3>
+                        <p class="text-gray-600">Avec les technologies **React & WAP**, vos outils sont accessibles partout, en temps réel, sans aucune installation.</p>
+                    </div>
+                    <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+                        <div class="text-4xl mb-4">🤝</div>
+                        <h3 class="text-xl font-bold mb-2">Expertise "Global-Local"</h3>
+                        <p class="text-gray-600">Un **chef de projet local** (France/HK) pilote notre centre de développement d'élite à **Chennai**. Efficacité et compréhension culturelle.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Notre Offre -->
+        <section id="offre" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Plus qu'un produit, un partenariat de croissance</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Nous ne livrons pas un logiciel dans une boîte. Nous initions un partenariat stratégique pour construire, adapter et faire évoluer en continu le système d'information qui soutiendra votre ambition. Voici comment nous procédons.</p>
+                </div>
+                <div class="relative max-w-4xl mx-auto">
+                    <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 hidden md:block"></div>
+                    <div class="space-y-12">
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center relative">
+                            <div class="md:text-right md:pr-8">
+                                <div class="bg-amber-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold md:ml-auto mb-4 md:mb-0">1</div>
+                                <h3 class="text-2xl font-bold">Audit Stratégique & IT Roadmap</h3>
+                                <p class="text-gray-600 mt-2">Nous commençons par écouter. Nous analysons vos ambitions et vos processus pour définir ensemble la trajectoire technologique idéale.</p>
+                            </div>
+                            <div class="hidden md:block"></div>
+                        </div>
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center relative">
+                             <div class="hidden md:block"></div>
+                            <div class="md:pl-8">
+                                <div class="bg-amber-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mb-4 md:mb-0">2</div>
+                                <h3 class="text-2xl font-bold">Déploiement de la Fondation GWS</h3>
+                                <p class="text-gray-600 mt-2">Nous mettons en place et optimisons Google Workspace, le socle sécurisé et performant de tout votre futur écosystème applicatif.</p>
+                            </div>
+                        </div>
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center relative">
+                            <div class="md:text-right md:pr-8">
+                                <div class="bg-amber-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold md:ml-auto mb-4 md:mb-0">3</div>
+                                <h3 class="text-2xl font-bold">Mise en Place du Cœur Applicatif</h3>
+                                <p class="text-gray-600 mt-2">Nos modules pré-développés (CRM/ERP/SCM) sont déployés pour vous apporter une valeur ajoutée immédiate et structurer vos opérations.</p>
+                            </div>
+                             <div class="hidden md:block"></div>
+                        </div>
+                        <div class="md:grid md:grid-cols-2 md:gap-8 items-center relative">
+                            <div class="hidden md:block"></div>
+                            <div class="md:pl-8">
+                               <div class="bg-amber-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold mb-4 md:mb-0">4</div>
+                               <h3 class="text-2xl font-bold">Développement Continu Sur-Mesure</h3>
+                               <p class="text-gray-600 mt-2">Votre équipe dédiée commence à adapter et créer les fonctionnalités uniques qui forgeront votre avantage concurrentiel, en suivant la roadmap.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <div class="text-center mt-16">
+                    <h3 class="text-2xl font-bold text-gray-800">Pourquoi un an change tout ?</h3>
+                    <p class="mt-2 text-lg text-gray-600 max-w-2xl mx-auto">C'est la durée nécessaire pour transformer votre IT d'un centre de coût qui subit à un moteur d'innovation qui anticipe et vous donne une longueur d'avance durable.</p>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Étude de Cas -->
+        <section id="etude-de-cas" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">La Preuve par le Succès : De 15 à 1254 en 16 mois</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">La théorie est une chose, les résultats en sont une autre. Nous avons accompagné une startup technologique ambitieuse dans son hyper-croissance, en lui fournissant les outils pour scaler sans imploser. Le graphique ci-dessous illustre cette trajectoire.</p>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl shadow-inner border">
+                    <div class="chart-container">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                     <div class="text-center mt-8">
+                        <p class="text-gray-700">De **15 employés** en Mars 2024 à **1254 employés** en Juillet 2025, la solution VR2 a permis une organisation structurée, des opérations fluides et des coûts IT parfaitement alignés sur la croissance, sans jamais la freiner.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Tarifs -->
+        <section id="tarifs" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Un Modèle Économique Révolutionnaire</h2>
+                     <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Fini les mauvaises surprises. Nous avons créé un modèle tarifaire aussi simple et scalable que notre solution. Votre budget IT devient enfin prévisible et parfaitement aligné sur votre croissance.</p>
+                </div>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                        <h3 class="text-2xl font-bold text-center">Estimez votre coût mensuel</h3>
+                        <div class="mt-6">
+                            <label for="userSlider" class="block text-lg font-semibold text-gray-700">Nombre d'utilisateurs : <span id="userCount" class="text-amber-500 font-bold">100</span></label>
+                            <input id="userSlider" type="range" min="10" max="1000" value="100" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2">
+                        </div>
+                        <div class="mt-6 text-center bg-amber-50 p-6 rounded-lg">
+                            <p class="text-lg text-gray-700">Votre investissement mensuel :</p>
+                            <p class="text-4xl font-extrabold text-gray-900 mt-2">€<span id="monthlyCost">4900</span> HT</p>
+                            <p class="text-sm text-gray-500 mt-2">Basé sur 49 € HT / mois / utilisateur</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                         <h3 class="text-2xl font-bold text-center">Un tarif unique. Tout est inclus.</h3>
+                         <div class="grid grid-cols-2 gap-4 mt-6 text-sm">
+                             <ul class="space-y-2">
+                                <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Audit & Roadmap</li>
+                                <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Licences modules base</li>
+                                <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Équipe de dev dédiée</li>
+                                <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Maintenance & Mises à jour</li>
+                                <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Chef de projet local</li>
+                             </ul>
+                             <ul class="space-y-2">
+                                <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Coûts de serveurs</li>
+                                <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Coûts de licences tierces</li>
+                                <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Coûts de recrutement IT</li>
+                                <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Factures de consultants</li>
+                             </ul>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gemini API Section -->
+        <section id="gemini-pitch" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Votre Solution Personnalisée ✨</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Arrêtez d'imaginer, commencez à visualiser. Décrivez votre activité et votre plus grand défi opérationnel, et laissez notre IA générer des pistes de solution sur-mesure pour vous.</p>
+                </div>
+                <div class="max-w-2xl mx-auto bg-gray-50 p-8 rounded-xl shadow-inner border">
+                    <div class="grid grid-cols-1 gap-6">
+                        <div>
+                            <label for="industry" class="block text-sm font-medium text-gray-700">Votre secteur d'activité</label>
+                            <input type="text" name="industry" id="industry" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm" placeholder="Ex: E-commerce, Logistique, SaaS B2B...">
+                        </div>
+                        <div>
+                            <label for="challenge" class="block text-sm font-medium text-gray-700">Votre plus grand défi</label>
+                            <textarea id="challenge" name="challenge" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm" placeholder="Ex: Gestion des stocks complexes, suivi client inefficace, facturation manuelle..."></textarea>
+                        </div>
+                        <div>
+                            <button id="generatePitch" class="w-full cta-button flex justify-center items-center bg-amber-500 text-white font-bold py-3 px-6 rounded-lg">
+                                Générer mes arguments personnalisés ✨
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="pitchResult" class="max-w-2xl mx-auto mt-8">
+                    <div id="geminiLoader" class="hidden mx-auto gemini-loader"></div>
+                    <div id="geminiResponse" class="prose prose-lg max-w-none text-gray-700"></div>
+                     <div id="geminiError" class="hidden text-center text-red-500 bg-red-100 p-4 rounded-lg"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- CTA Section -->
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Prêt à construire votre propre usine logicielle ?</h2>
+                 <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">NVIDIA ne fabrique pas ses puces. Apple non plus. Ils se concentrent sur leur cœur de métier. Votre logiciel est votre plus grand avantage concurrentiel. Confiez sa fabrication à votre partenaire stratégique.</p>
+                <div class="mt-8">
+                    <a href="mailto:contact@vr2.example.com" class="cta-button bg-amber-500 text-white font-bold py-4 px-8 rounded-lg text-lg">Planifions un audit stratégique gratuit</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>VR2 © 2025</p>
+            <p class="text-sm text-gray-400 mt-2">Hong Kong | France</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Chart.js: Growth Chart
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            const startDate = new Date('2024-03-01');
+            const endDate = new Date('2025-07-01');
+            const startValue = 15;
+            const endValue = 1254;
+            const labels = [];
+            const dataPoints = [];
+            const monthlyGrowthRate = Math.pow(endValue / startValue, 1 / 16) - 1;
+            let currentDate = new Date(startDate);
+            let monthCount = 0;
+            while (currentDate <= endDate) {
+                labels.push(currentDate.toLocaleDateString('fr-FR', { month: 'short', year: '2-digit' }));
+                const currentValue = startValue * Math.pow(1 + monthlyGrowthRate, monthCount);
+                dataPoints.push(Math.round(currentValue));
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                monthCount++;
+            }
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(245, 158, 11, 0.5)');
+            gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Nombre d\'employés',
+                        data: dataPoints,
+                        borderColor: '#F59E0B',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointRadius: 2,
+                        pointBackgroundColor: '#F59E0B',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Nombre d\'employés' } }, x: { title: { display: true, text: 'Mois' } } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(context) { return ` Employés: ${context.parsed.y}`; } } } }, animation: { duration: 1500, easing: 'easeInOutQuad' } }
+            });
+
+            // Pricing Slider
+            const slider = document.getElementById('userSlider');
+            const userCount = document.getElementById('userCount');
+            const monthlyCost = document.getElementById('monthlyCost');
+            const pricePerUser = 49;
+            function updateCost() {
+                const users = slider.value;
+                userCount.textContent = users;
+                monthlyCost.textContent = (users * pricePerUser).toLocaleString('fr-FR');
+            }
+            slider.addEventListener('input', updateCost);
+            updateCost();
+
+            // Gemini API Pitch Generator
+            const generateButton = document.getElementById('generatePitch');
+            const industryInput = document.getElementById('industry');
+            const challengeInput = document.getElementById('challenge');
+            const loader = document.getElementById('geminiLoader');
+            const responseContainer = document.getElementById('geminiResponse');
+            const errorContainer = document.getElementById('geminiError');
+
+            generateButton.addEventListener('click', async () => {
+                const industry = industryInput.value;
+                const challenge = challengeInput.value;
+
+                if (!industry || !challenge) {
+                    errorContainer.textContent = 'Veuillez remplir les deux champs pour générer vos arguments.';
+                    errorContainer.classList.remove('hidden');
+                    return;
+                }
+
+                loader.classList.remove('hidden');
+                responseContainer.innerHTML = '';
+                errorContainer.classList.add('hidden');
+                generateButton.disabled = true;
+
+                const prompt = `Tu es un consultant expert pour VR2, une entreprise qui crée des logiciels sur-mesure révolutionnaires basés sur Google Workspace. Un client potentiel est dans le secteur "${industry}" et son plus grand défi est "${challenge}".
+
+                Génère une réponse en 3 points clés percutants expliquant comment la solution VR2 peut spécifiquement résoudre ce problème et lui donner un avantage compétitif. Adopte un ton direct, confiant et orienté solution.
+
+                Format de la réponse attendue :
+                ### Titre Accrocheur
+                1.  **Point Clé 1 :** Explication brève.
+                2.  **Point Clé 2 :** Explication brève.
+                3.  **Point Clé 3 :** Explication brève.
+                #### Conclusion impactante.`;
+
+                try {
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; 
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Erreur de l'API: ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        // Simple markdown to HTML conversion
+                        let htmlResponse = text
+                            .replace(/### (.*)/g, '<h3 class="text-xl font-bold text-gray-800 mb-4">$1</h3>')
+                            .replace(/#### (.*)/g, '<h4 class="text-lg font-semibold text-gray-700 mt-4">$1</h4>')
+                            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                            .replace(/^\s*1\.\s/gm, '<p class="mt-2">1. ')
+                            .replace(/^\s*2\.\s/gm, '</p><p class="mt-2">2. ')
+                            .replace(/^\s*3\.\s/gm, '</p><p class="mt-2">3. ') + '</p>';
+                        
+                        responseContainer.innerHTML = htmlResponse;
+
+                    } else {
+                        throw new Error("La réponse de l'API est dans un format inattendu ou vide.");
+                    }
+
+                } catch (error) {
+                    console.error("Erreur lors de l'appel à l'API Gemini:", error);
+                    errorContainer.textContent = "Désolé, une erreur est survenue lors de la génération de la réponse. Veuillez réessayer.";
+                    errorContainer.classList.remove('hidden');
+                } finally {
+                    loader.classList.add('hidden');
+                    generateButton.disabled = false;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
