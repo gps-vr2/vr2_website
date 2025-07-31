@@ -310,7 +310,7 @@
         <div class="mt-6 text-center bg-amber-50 p-6 rounded-lg">
           <p class="text-lg text-gray-700">Your monthly investment:</p>
           <p class="text-4xl font-extrabold text-gray-900 mt-2">HKD <span id="monthlyCost">590,000</span></p>
-          <p class="text-sm text-gray-500 mt-2">Based on HKD 5,900 / Google account / month</p>
+          <p class="text-sm text-gray-500 mt-2">Based on HKD 590 / Google account / month</p>
         </div>
       </div>
 
@@ -337,21 +337,7 @@
   </div>
 </section>
 
-<script>
-  function updatePrice(userCount) {
-    const ratePerAccount = 5900;
-    const totalCost = userCount * ratePerAccount;
 
-    document.getElementById("userCount").textContent = userCount;
-    document.getElementById("monthlyCost").textContent = totalCost.toLocaleString("en-HK", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    });
-  }
-
-  // Ensure the initial display matches slider value
-  updatePrice(document.getElementById("userSlider").value);
-</script>
         <!-- Add this inside your <body> tag where appropriate -->
 
 
@@ -466,7 +452,7 @@ new Chart(ctx, {
             const slider = document.getElementById('userSlider');
             const userCount = document.getElementById('userCount');
             const monthlyCost = document.getElementById('monthlyCost');
-            const pricePerUser = 49;
+            const pricePerUser = 590;
             function updateCost() {
                 const users = slider.value;
                 userCount.textContent = users;
@@ -475,88 +461,7 @@ new Chart(ctx, {
             slider.addEventListener('input', updateCost);
             updateCost();
 
-            // Gemini API Pitch Generator
-            const generateButton = document.getElementById('generatePitch');
-            const industryInput = document.getElementById('industry');
-            const challengeInput = document.getElementById('challenge');
-            const loader = document.getElementById('geminiLoader');
-            const responseContainer = document.getElementById('geminiResponse');
-            const errorContainer = document.getElementById('geminiError');
-
-            generateButton.addEventListener('click', async () => {
-                const industry = industryInput.value;
-                const challenge = challengeInput.value;
-
-                if (!industry || !challenge) {
-                    errorContainer.textContent = 'Please fill in both fields to generate your arguments.';
-                    errorContainer.classList.remove('hidden');
-                    return;
-                }
-
-                loader.classList.remove('hidden');
-                responseContainer.innerHTML = '';
-                errorContainer.classList.add('hidden');
-                generateButton.disabled = true;
-
-                const prompt = `You are an expert consultant for VR2, a company that creates revolutionary custom software based on Google Workspace. A potential client is in the "${industry}" sector and their biggest challenge is "${challenge}".
-
-                Generate a response with 3 concise key points explaining how the VR2 solution can specifically solve this problem and give them a competitive advantage. Adopt a direct, confident, and solution-oriented tone.
-
-                Expected response format:
-                ### Catchy Title
-                1.  **Key Point 1:** Brief explanation.
-                2.  **Key Point 2:** Brief explanation.
-                3.  **Key Point 3:** Brief explanation.
-                #### Impactful Conclusion.`;
-
-                try {
-                    let chatHistory = [];
-                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                    const payload = { contents: chatHistory };
-                    // Replace with your actual API key
-                    const apiKey = ""; 
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                    
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`API error: ${response.statusText}`);
-                    }
-
-                    const result = await response.json();
-                    
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        // Simple markdown to HTML conversion
-                        let htmlResponse = text
-                            .replace(/### (.*)/g, '<h3 class="text-xl font-bold text-gray-800 mb-4">$1</h3>')
-                            .replace(/#### (.*)/g, '<h4 class="text-lg font-semibold text-gray-700 mt-4">$1</h4>')
-                            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                            .replace(/^\s*1\.\s/gm, '<p class="mt-2">1. ')
-                            .replace(/^\s*2\.\s/gm, '</p><p class="mt-2">2. ')
-                            .replace(/^\s*3\.\s/gm, '</p><p class="mt-2">3. ') + '</p>';
-                        
-                        responseContainer.innerHTML = htmlResponse;
-
-                    } else {
-                        throw new Error("API response is in an unexpected format or empty.");
-                    }
-
-                } catch (error) {
-                    console.error("Error calling Gemini API:", error);
-                    errorContainer.textContent = "Sorry, an error occurred while generating the response. Please try again.";
-                    errorContainer.classList.remove('hidden');
-                } finally {
-                    loader.classList.add('hidden');
-                    generateButton.disabled = false;
-                }
-            });
+            
         });
     </script>
 
