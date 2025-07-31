@@ -204,8 +204,10 @@
         <section id="case-study" class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Proof by Success: From 15 to 1254 in 16 months</h2>
-                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Theory is one thing, results are another. We supported an ambitious tech startup in its hyper-growth, providing it with the tools to scale without imploding. The chart below illustrates this trajectory.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Proof by Success: From 29 to 125 in 18 months</h2>
+<p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+  We supported a fast-scaling tech startup, helping it grow from 29 employees in January 2024 to 125 by July 2025. The chart below shows how VR2 enabled structured growth, operational clarity, and cost alignment without bottlenecks.
+</p>
                 </div>
                 <div class="bg-gray-50 p-8 rounded-xl shadow-inner border">
                     <div class="chart-container">
@@ -258,6 +260,28 @@
                 </div>
             </div>
         </section>
+        <!-- Add this inside your <body> tag where appropriate -->
+
+<!-- Google Workspace Feature Block -->
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Google Workspace: Your Digital Backbone</h2>
+    <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-10">
+      Google Workspace is a cloud-based suite of productivity and collaboration tools designed to streamline your business operations. From email and meetings to documents and data storage, it empowers teams to work smarter and faster. With seamless integration and real-time collaboration, it’s the foundation for modern, agile organizations. Secure, scalable, and accessible—anytime, anywhere.
+    </p>
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-6 items-center justify-center">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_icon_(2020).svg" alt="Gmail" class="h-12 mx-auto" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Google_Drive_icon_(2020).svg" alt="Drive" class="h-12 mx-auto" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Google_Meet_icon_(2020).svg" alt="Meet" class="h-12 mx-auto" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Google_Calendar_icon_(2020).svg" alt="Calendar" class="h-12 mx-auto" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Google_Docs_icon_(2020).svg" alt="Docs" class="h-12 mx-auto" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Sheets_icon_(2020).svg" alt="Sheets" class="h-12 mx-auto" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Google_Slides_icon_(2020).svg" alt="Slides" class="h-12 mx-auto" />
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Google_Forms_icon_(2020).svg" alt="Forms" class="h-12 mx-auto" />
+    </div>
+    <p class="text-xs text-gray-500 mt-4">*Icons sourced from Wikimedia Commons</p>
+  </div>
+</section>
 
         <section id="gemini-pitch" class="py-20 bg-white">
             <div class="container mx-auto px-6">
@@ -312,45 +336,63 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Chart.js: Growth Chart
-            const ctx = document.getElementById('growthChart').getContext('2d');
-            const startDate = new Date('2024-03-01');
-            const endDate = new Date('2025-07-01');
-            const startValue = 15;
-            const endValue = 1254;
-            const labels = [];
-            const dataPoints = [];
-            const monthlyGrowthRate = Math.pow(endValue / startValue, 1 / 16) - 1;
-            let currentDate = new Date(startDate);
-            let monthCount = 0;
-            while (currentDate <= endDate) {
-                labels.push(currentDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }));
-                const currentValue = startValue * Math.pow(1 + monthlyGrowthRate, monthCount);
-                dataPoints.push(Math.round(currentValue));
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                monthCount++;
-            }
-            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, 'rgba(245, 158, 11, 0.5)');
-            gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Number of Employees',
-                        data: dataPoints,
-                        borderColor: '#F59E0B',
-                        backgroundColor: gradient,
-                        borderWidth: 3,
-                        pointRadius: 2,
-                        pointBackgroundColor: '#F59E0B',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, title: { display: true, text: 'Number of Employees' } }, x: { title: { display: true, text: 'Month' } } }, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(context) { return ` Employees: ${context.parsed.y}`; } } } }, animation: { duration: 1500, easing: 'easeInOutQuad' } }
-            });
-
+            // Chart.js: Updated Growth Chart (29 to 125 in 18 months)
+const ctx = document.getElementById('growthChart').getContext('2d');
+const startDate = new Date('2024-01-01');
+const endDate = new Date('2025-07-01');
+const startValue = 29;
+const endValue = 125;
+const labels = [];
+const dataPoints = [];
+const monthlyGrowthRate = Math.pow(endValue / startValue, 1 / 18) - 1;
+let currentDate = new Date(startDate);
+let monthCount = 0;
+while (currentDate <= endDate) {
+  labels.push(currentDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' }));
+  const currentValue = startValue * Math.pow(1 + monthlyGrowthRate, monthCount);
+  dataPoints.push(Math.round(currentValue));
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  monthCount++;
+}
+const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+gradient.addColorStop(0, 'rgba(245, 158, 11, 0.5)');
+gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Number of Employees',
+      data: dataPoints,
+      borderColor: '#F59E0B',
+      backgroundColor: gradient,
+      borderWidth: 3,
+      pointRadius: 2,
+      pointBackgroundColor: '#F59E0B',
+      tension: 0.4,
+      fill: true
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: { beginAtZero: true, title: { display: true, text: 'Number of Employees' } },
+      x: { title: { display: true, text: 'Month' } }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return ` Employees: ${context.parsed.y}`;
+          }
+        }
+      }
+    },
+    animation: { duration: 1500, easing: 'easeInOutQuad' }
+  }
+});
             // Pricing Slider
             const slider = document.getElementById('userSlider');
             const userCount = document.getElementById('userCount');
@@ -451,4 +493,3 @@
 
 </body>
 </html>
-```
