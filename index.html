@@ -281,45 +281,61 @@
         </section>
 
         <section id="pricing" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">A Revolutionary Economic Model</h2>
-                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">No more nasty surprises. We have created a pricing model as simple and scalable as our solution. Your IT budget finally becomes predictable and perfectly aligned with your growth.</p>
-                </div>
-                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
-                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                        <h3 class="text-2xl font-bold text-center">Estimate your monthly cost</h3>
-                        <div class="mt-6">
-                            <label for="userSlider" class="block text-lg font-semibold text-gray-700">Number of users: <span id="userCount" class="text-amber-500 font-bold">100</span></label>
-                            <input id="userSlider" type="range" min="10" max="1000" value="100" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2">
-                        </div>
-                        <div class="mt-6 text-center bg-amber-50 p-6 rounded-lg">
-                            <p class="text-lg text-gray-700">Your monthly investment:</p>
-                            <p class="text-4xl font-extrabold text-gray-900 mt-2">€<span id="monthlyCost">4900</span> excl. VAT</p>
-                            <p class="text-sm text-gray-500 mt-2">Based on €49 excl. VAT / month / user</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                           <h3 class="text-2xl font-bold text-center">A single price. Everything included.</h3>
-                           <div class="grid grid-cols-2 gap-4 mt-6 text-sm">
-                                <ul class="space-y-2">
-                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Audit & Roadmap</li>
-                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Base module licenses</li>
-                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Dedicated dev team</li>
-                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Maintenance & Updates</li>
-                                    <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Local project manager</li>
-                                </ul>
-                                <ul class="space-y-2">
-                                    <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Server costs</li>
-                                    <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Third-party license costs</li>
-                                    <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>IT recruitment costs</li>
-                                    <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Consultant invoices</li>
-                                </ul>
-                           </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">A Revolutionary Economic Model</h2>
+      <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+        No more nasty surprises. We have created a pricing model as simple and scalable as our solution.
+        Your IT budget finally becomes predictable and perfectly aligned with your growth.
+      </p>
+    </div>
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+      <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+        <h3 class="text-2xl font-bold text-center">Estimate your monthly cost</h3>
+        <div class="mt-6">
+          <label for="userSlider" class="block text-lg font-semibold text-gray-700">
+            Number of Google accounts: <span id="userCount" class="text-amber-500 font-bold">100</span>
+          </label>
+          <input id="userSlider" type="range" min="3" max="1000" value="100"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2"
+            oninput="updatePrice(this.value)">
+        </div>
+        <div class="mt-6 text-center bg-amber-50 p-6 rounded-lg">
+          <p class="text-lg text-gray-700">Your monthly investment:</p>
+          <p class="text-4xl font-extrabold text-gray-900 mt-2">HKD <span id="monthlyCost">59000</span></p>
+          <p class="text-sm text-gray-500 mt-2">Based on HKD 590 / Google account / month</p>
+        </div>
+      </div>
+
+      <!-- Second column unchanged -->
+      <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+        <h3 class="text-2xl font-bold text-center">A single price. Everything included.</h3>
+        <div class="grid grid-cols-2 gap-4 mt-6 text-sm">
+          <ul class="space-y-2">
+            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Audit & Roadmap</li>
+            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Base module licenses</li>
+            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Dedicated dev team</li>
+            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Maintenance & Updates</li>
+            <li class="flex items-center"><span class="text-green-500 mr-2">✅</span>Local project manager</li>
+          </ul>
+          <ul class="space-y-2">
+            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Server costs</li>
+            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Third-party license costs</li>
+            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>IT recruitment costs</li>
+            <li class="flex items-center"><span class="text-red-500 mr-2">❌</span>Consultant invoices</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function updatePrice(value) {
+    document.getElementById("userCount").textContent = value;
+    document.getElementById("monthlyCost").textContent = value * 590;
+  }
+</script>
         <!-- Add this inside your <body> tag where appropriate -->
 
 
