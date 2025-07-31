@@ -274,13 +274,13 @@
                         <canvas id="growthChart"></canvas>
                     </div>
                     <div class="text-center mt-8">
-                        <p class="text-gray-700">From **15 employees** in March 2024 to **1254 employees** in July 2025, the VR2 solution enabled structured organization, fluid operations, and IT costs perfectly aligned with growth, without ever hindering it.</p>
+                        <p class="text-gray-700">From <b>15 employees</b> in March 2024 to <b>1254 employees</b> in July 2025, the VR2 solution enabled structured organization, fluid operations, and IT costs perfectly aligned with growth, without ever hindering it.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="pricing" class="py-20">
+    <section id="pricing" class="py-20">
   <div class="container mx-auto px-6">
     <div class="text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold text-gray-900">A Revolutionary Economic Model</h2>
@@ -290,24 +290,31 @@
       </p>
     </div>
     <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+      <!-- Pricing Estimator -->
       <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
         <h3 class="text-2xl font-bold text-center">Estimate your monthly cost</h3>
         <div class="mt-6">
           <label for="userSlider" class="block text-lg font-semibold text-gray-700">
             Number of Google accounts: <span id="userCount" class="text-amber-500 font-bold">100</span>
           </label>
-          <input id="userSlider" type="range" min="3" max="1000" value="100"
+          <input
+            id="userSlider"
+            type="range"
+            min="3"
+            max="1000"
+            value="100"
             class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer mt-2"
-            oninput="updatePrice(this.value)">
+            oninput="updatePrice(this.value)"
+          >
         </div>
         <div class="mt-6 text-center bg-amber-50 p-6 rounded-lg">
           <p class="text-lg text-gray-700">Your monthly investment:</p>
-          <p class="text-4xl font-extrabold text-gray-900 mt-2">HKD <span id="monthlyCost">59000</span></p>
-          <p class="text-sm text-gray-500 mt-2">Based on HKD 590 / Google account / month</p>
+          <p class="text-4xl font-extrabold text-gray-900 mt-2">HKD <span id="monthlyCost">590,000</span></p>
+          <p class="text-sm text-gray-500 mt-2">Based on HKD 5,900 / Google account / month</p>
         </div>
       </div>
 
-      <!-- Second column unchanged -->
+      <!-- Package Details -->
       <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
         <h3 class="text-2xl font-bold text-center">A single price. Everything included.</h3>
         <div class="grid grid-cols-2 gap-4 mt-6 text-sm">
@@ -331,10 +338,19 @@
 </section>
 
 <script>
-  function updatePrice(value) {
-    document.getElementById("userCount").textContent = value;
-    document.getElementById("monthlyCost").textContent = value * 5900;
+  function updatePrice(userCount) {
+    const ratePerAccount = 5900;
+    const totalCost = userCount * ratePerAccount;
+
+    document.getElementById("userCount").textContent = userCount;
+    document.getElementById("monthlyCost").textContent = totalCost.toLocaleString("en-HK", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    });
   }
+
+  // Ensure the initial display matches slider value
+  updatePrice(document.getElementById("userSlider").value);
 </script>
         <!-- Add this inside your <body> tag where appropriate -->
 
