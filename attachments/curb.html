@@ -3,25 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VR2 Prospectus</title>
+    <link rel="icon" href="attachments\favicon.ico" type="image/x-icon">
+
+    <title>VR2: Your Custom Software Factory</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f9fc;
+            background-color: #F9FAFB; /* gray-50 */
+            color:  #1A73E8; /* gray-800 */
         }
-        .prospectus-container {
-            max-width: 900px;
-            margin: auto;
-            background-color: #ffffff;
-            border-radius: 1rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            padding: 2.5rem;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
         }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+                max-height: 500px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color:  #1A73E8; /* amber-500 */
+        }
+        .cta-button {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .card-hover {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .gemini-loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid  #1A73E8;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
     </style>
 </head>
-<body class="p-8">
+<body class="antialiased p-8">
+
+   <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+    <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <img class="w-48 l-48" src="VR2.svg" alt="Company Logo">
+
+        <div class="md:hidden">
+            <button id="menu-toggle" class="text-gray-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h4"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div id="nav-menu" class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center absolute md:relative top-full left-0 w-full md:w-auto bg-white/90 md:bg-transparent p-6 md:p-0 shadow-lg md:shadow-none transition-all duration-300 ease-in-out">
+            <a href="/index.html#problem" class="nav-link text-gray-600 font-semibold hover:text-blue-600">The Problem</a>
+            <a href="#solution" class="nav-link text-gray-600 font-semibold hover:text-blue-600">The Solution</a>
+            <a href="#our-offer" class="nav-link text-gray-600 font-semibold hover:text-blue-600">Our Offer</a>
+            <a href="#case-study" class="nav-link text-gray-600 font-semibold hover:text-blue-600">Case Study</a>
+            <a href="#pricing" class="nav-link text-gray-600 font-semibold hover:text-blue-600">Pricing</a>
+            <a href="attachments\curb.html" class="cta-button bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600">S-Curb</a>
+            <a href="#contact" class="cta-button bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600">Contact</a>
+        </div>
+    </nav>
+</header><br><br><br>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("DOM fully loaded and parsed.");
+
+            const menuToggle = document.getElementById('menu-toggle');
+            const navMenu = document.getElementById('nav-menu');
+
+            // Verify if elements were found
+            if (!menuToggle) {
+                console.error("Error: Element with ID 'menu-toggle' not found.");
+                return; // Stop script execution if critical element is missing
+            }
+            if (!navMenu) {
+                console.error("Error: Element with ID 'nav-menu' not found.");
+                return; // Stop script execution if critical element is missing
+            }
+
+            console.log("Menu toggle and nav menu elements found.");
+
+            // Function to toggle the mobile menu state
+            function toggleMobileMenu() {
+                const isHidden = navMenu.classList.contains('hidden');
+
+                if (isHidden) {
+                    navMenu.classList.remove('hidden');
+                    navMenu.classList.add('flex'); // Show as flex column
+                    menuToggle.setAttribute('aria-expanded', 'true');
+                    console.log("Menu opened.");
+                } else {
+                    navMenu.classList.add('hidden');
+                    navMenu.classList.remove('flex'); // Hide
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    console.log("Menu closed.");
+                }
+            }
+
+            // Event listener for the menu toggle button
+            menuToggle.addEventListener('click', toggleMobileMenu);
+
+            // Event listener to close menu when a navigation link is clicked (on mobile)
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function () {
+                    // Only close if the menu is currently visible and it's a mobile view
+                    if (window.innerWidth < 768 && !navMenu.classList.contains('hidden')) {
+                        toggleMobileMenu(); // Re-use the toggle function to close
+                    }
+                });
+            });
+
+            // Handle window resize event
+            window.addEventListener('resize', function() {
+                console.log("Window resized. Current width:", window.innerWidth);
+                if (window.innerWidth >= 768) { // Desktop view
+                    navMenu.classList.remove('hidden');
+                    navMenu.classList.add('flex');
+                    menuToggle.setAttribute('aria-expanded', 'true'); // Assume expanded on desktop
+                    // Ensure any inline styles from previous mobile state are overridden if needed
+                    // (Tailwind utility classes usually handle this well)
+                } else { // Mobile view
+                    // If currently visible from desktop mode, hide it
+                    if (navMenu.classList.contains('flex')) {
+                        navMenu.classList.add('hidden');
+                        navMenu.classList.remove('flex');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        console.log("Menu hidden due to resize to mobile view.");
+                    }
+                }
+            });
+
+            // Initial setup based on screen size on load
+            if (window.innerWidth >= 768) {
+                navMenu.classList.remove('hidden');
+                navMenu.classList.add('flex');
+                menuToggle.setAttribute('aria-expanded', 'true');
+                console.log("Initial state: Desktop view, menu visible.");
+            } else {
+                navMenu.classList.add('hidden'); // Ensure it's hidden by default on mobile
+                navMenu.classList.remove('flex'); // Make sure flex isn't applied initially
+                menuToggle.setAttribute('aria-expanded', 'false');
+                console.log("Initial state: Mobile view, menu hidden.");
+            }
+        });
+    </script>
+
 
     <div class="prospectus-container">
         <header class="text-center mb-10">
@@ -50,7 +204,7 @@
 
             <div class="flex items-center justify-center w-full">
                 <!-- User-provided S-Curve Image -->
-                <img src="attachments\Curve.webp" alt="S-Curve Diagram showing Start, Growth, Scale, and Maturity" class="w-full max-w-2xl mx-auto mb-8">
+                <img src="cruve.webp" alt="S-Curve Diagram showing Start, Growth, Scale, and Maturity" class="w-full max-w-2xl mx-auto mb-8">
             </div>
             
         </section>
@@ -83,7 +237,13 @@
             <p class="max-w-xl mx-auto mb-6">The best way to begin this journey is with a simple, no-obligation audit. It is the crucial first step to unlocking your company's full potential.</p>
             <p class="font-semibold text-blue-600">We look forward to the possibility of working with you to build a more efficient, agile, and innovative future.</p>
         </section>
-    </div>
+    </div><br><br>
+     <footer class="bg-blue-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>VR2 © 2025</p>
+            <p class="text-sm text-gray-400 mt-2">PARIS | CHENNAI | HONG-KONG</p>
+        </div>
+    </footer>
 
 </body>
 </html>
