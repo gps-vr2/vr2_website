@@ -1,96 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="attachments/favicon.ico" type="image/x-icon" />
-  <title>VR2: Your Custom Software Factory</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #F9FAFB;
-      color: #1A73E8;
-    }
-    .chart-container {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      height: 300px;
-      max-height: 400px;
-    }
-    @media (min-width: 768px) {
-      .chart-container {
-        height: 400px;
-        max-height: 500px;
-      }
-    }
-    .nav-link {
-      transition: color 0.3s;
-    }
-    .nav-link:hover {
-      color: #1A73E8;
-    }
-    .cta-button {
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    }
-    .card-hover {
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .card-hover:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    }
-    .gemini-loader {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #1A73E8;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="attachments\favicon.ico" type="image/x-icon">
+
+    <title>VR2: Your Custom Software Factory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9FAFB; /* gray-50 */
+            color:  #1A73E8; /* gray-800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+                max-height: 500px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
+            color:  #1A73E8; /* amber-500 */
+        }
+        .cta-button {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .card-hover {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .gemini-loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid  #1A73E8;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+    </style>
 </head>
-<body class="antialiased">
+<body class="antialiased p-0">
 
-  <!-- Header (Full Width) -->
-  <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm w-full">
-    <nav class="w-full px-4 py-3 flex justify-between items-center">
-      <img class="w-36 md:w-48" src="VR2.svg" alt="Company Logo" />
-      <h2 class="text-gray-600 font-semibold text-sm md:text-xl text-center hidden xs:block">
-        The VR2 S-Curve: The Strategic Audit
-      </h2>
-      <div class="md:hidden">
-        <button id="menu-toggle" class="text-gray-600 focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16m-4 6h4"></path>
-          </svg>
-        </button>
-      </div>
-    </nav>
-    <div id="nav-menu" class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center bg-white/90 md:bg-transparent px-4 md:px-0 py-6 md:py-0 shadow-lg md:shadow-none transition-all duration-300 ease-in-out">
-      <a href="/index.html" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 text-sm md:text-base">
-        HOME
-      </a>
+   <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm w-full">
+  <nav class="px-4 py-3 flex justify-between items-center">
+    
+    <!-- Logo -->
+    <img class="w-36 md:w-48" src="VR2.svg" alt="Company Logo">
+
+    <!-- Title (hidden on very small screens) -->
+    <h2 class="text-gray-600 font-semibold text-sm md:text-xl text-center hidden xs:block">
+      The VR2 S-Curve: The Strategic Audit
+    </h2>
+
+    <!-- Mobile Menu Toggle -->
+    <div class="md:hidden">
+      <button id="menu-toggle" class="text-gray-600 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16m-4 6h4"></path>
+        </svg>
+      </button>
     </div>
-  </header>
+  </nav>
 
-<br><br><br>
+  <!-- Navigation Menu -->
+  <div id="nav-menu" class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center bg-white/90 md:bg-transparent p-6 md:p-0 shadow-lg md:shadow-none transition-all duration-300 ease-in-out">
+    <a href="/index.html" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 text-sm md:text-base">
+      HOME
+    </a>
+  </div>
+</header><br><br><br>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             console.log("DOM fully loaded and parsed.");
@@ -237,29 +244,39 @@
             <p class="font-semibold text-blue-600">We look forward to the possibility of working with you to build a more efficient, agile, and innovative future.</p>
         </section>
     </div><br><br>
-   <!-- VR² Footer -->
-<footer class="flex flex-col md:flex-row text-left font-sans">
-  <!-- Paris -->
-  <div class="flex-1 bg-blue-600 text-white p-6 text-sm md:text-base">
-    <h3 class="text-lg font-semibold mb-2">PARIS</h3>
-    <p>142, rue de Clignancourt<br>75018 Paris<br>France</p>
-    <p class="mt-2">Email: <a href="mailto:paris@vr2.in" class="underline">paris@vr2.in</a></p>
+<!-- Paris -->
+  <div class="flex justify-between items-start bg-blue-600 text-white px-4 py-3">
+    <div class="w-1/2">
+      <h3 class="text-base font-semibold">PARIS</h3>
+      <p class="text-sm"><a href="mailto:paris@vr2.in" class="text-white">paris@vr2.in</a></p>
+    </div>
+    <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
+      <p>142, rue de Clignancourt<br>75018 Paris<br>France</p>
+    </div>
   </div>
 
   <!-- Chennai -->
-  <div class="flex-1 bg-red-600 text-white p-6 text-sm md:text-base">
-    <h3 class="text-lg font-semibold mb-2">CHENNAI</h3>
-    <p>KRM Plaza South, Tower B, 8th Floor<br>No.2, Harrington Road, Chetpet<br>600031, Chennai TN, India</p>
-    <p class="mt-2">Email: <a href="mailto:chennai@vr2.in" class="underline">chennai@vr2.in</a></p>
+  <div class="flex justify-between items-start bg-red-600 text-white px-4 py-3">
+    <div class="w-1/2">
+      <h3 class="text-base font-semibold">CHENNAI</h3>
+      <p class="text-sm"><a href="mailto:chennai@vr2.in" class="text-white">chennai@vr2.in</a></p>
+    </div>
+    <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
+      <p>KRM Plaza South, Tower B, 8th Floor<br>No.2, Harrington Road, Chetpet<br>600031, Chennai TN, India</p>
+    </div>
   </div>
 
   <!-- Hong Kong -->
-  <div class="flex-1 bg-yellow-400 text-black p-6 text-sm md:text-base">
-    <h3 class="text-lg font-semibold mb-2">HONG KONG</h3>
-    <p>14F, Connaught Commercial Building<br>185 Wanchai Road<br>Hong Kong</p>
-    <p class="mt-2">Email: <a href="mailto:hongkong@vr2.in" class="underline">hongkong@vr2.in</a></p>
+  <div class="flex justify-between items-start bg-yellow-400 text-black px-4 py-3">
+    <div class="w-1/2">
+      <h3 class="text-base font-semibold">HONG KONG</h3>
+      <p class="text-sm"><a href="mailto:hongkong@vr2.in" class=" text-black">hongkong@vr2.in</a></p>
+    </div>
+    <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
+      <p>6/F, Connaught Commercial Building<br>185 Wanchai Road<br>Hong Kong</p>
+    </div>
   </div>
-</footer>
+</div>
 
 </body>
 </html>
