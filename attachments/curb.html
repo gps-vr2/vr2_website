@@ -67,37 +67,29 @@
         
     </style>
 </head>
-<body class="antialiased p-0 text-center">
+<body class=" text-black antialiased p-0">
 
-    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm w-full">
-  <nav class="px-4 py-3 flex justify-between items-center">
-    
-    <img class="w-36 md:w-48" src="VR2.svg" alt="Company Logo">
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+    <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <img class="w-48 l-48" src="VR2.svg" alt="Company Logo">
 
-    <h2 class="text-gray-600 font-semibold text-sm md:text-xl text-center hidden xs:block">
-      The VR2 S-Curve: The Strategic Audit
-    </h2>
+        <div class="md:hidden">
+            <button id="menu-toggle" class="text-gray-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h4"></path>
+                </svg>
+            </button>
+        </div>
 
-    <div class="md:hidden">
-      <button id="menu-toggle" class="text-gray-600 focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 6h16M4 12h16m-4 6h4"></path>
-        </svg>
-      </button>
-    </div>
-  </nav>
+        <div id="nav-menu" class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center absolute md:relative top-full left-0 w-full md:w-auto bg-white/90 md:bg-transparent p-6 md:p-0 shadow-lg md:shadow-none transition-all duration-300 ease-in-out">   
+        <a href="/index.html" class="cta-button bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600">HOME</a>
+        </div>
+    </nav>
+</header>
 
-  <div id="nav-menu" class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 items-center bg-white/90 md:bg-transparent p-6 md:p-0 shadow-lg md:shadow-none transition-all duration-300 ease-in-out">
-    <a href="/index.html" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 text-sm md:text-base">
-      HOME
-    </a>
-  </div>
-</header><br><br><br>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             console.log("DOM fully loaded and parsed.");
-
             const menuToggle = document.getElementById('menu-toggle');
             const navMenu = document.getElementById('nav-menu');
 
@@ -112,11 +104,9 @@
             }
 
             console.log("Menu toggle and nav menu elements found.");
-
             // Function to toggle the mobile menu state
             function toggleMobileMenu() {
                 const isHidden = navMenu.classList.contains('hidden');
-
                 if (isHidden) {
                     navMenu.classList.remove('hidden');
                     navMenu.classList.add('flex'); // Show as flex column
@@ -132,7 +122,6 @@
 
             // Event listener for the menu toggle button
             menuToggle.addEventListener('click', toggleMobileMenu);
-
             // Event listener to close menu when a navigation link is clicked (on mobile)
             navMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function () {
@@ -142,7 +131,6 @@
                     }
                 });
             });
-
             // Handle window resize event
             window.addEventListener('resize', function() {
                 console.log("Window resized. Current width:", window.innerWidth);
@@ -162,7 +150,6 @@
                     }
                 }
             });
-
             // Initial setup based on screen size on load
             if (window.innerWidth >= 768) {
                 navMenu.classList.remove('hidden');
@@ -180,22 +167,23 @@
 
 
     <div class="prospectus-container px-4">
-        <header class="text-center mb-10">
+        <section class="text-center mb-10 py-20 md:py-32 bg-white">
             <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-2">Strategic Prospectus: The VR2 Digital Transformation Journey</h1>
             <p class="text-xl sm:text-2xl text-gray-600 font-medium">A New Approach to Business Efficiency and Innovation</p>
-        </header>
+        </section>
 
         <section class="mb-10 text-gray-700 leading-relaxed">
-            <p class="mb-4">In today's complex digital landscape, businesses are often slowed down by fragmented software, siloed data, and clunky workflows. The VR2 revolution is designed to solve these exact problems.</p>
+            <p class="mb-4 text-center">In today's complex digital landscape, businesses are often slowed down by fragmented software, siloed data, and clunky workflows. The VR2 revolution is designed to solve these exact problems.</p>
             <p class="mb-4 text-center text-lg font-semibold text-blue-600">
                 VR2 is a new paradigm of business efficiency. It's not just another software solution; it's a new way of working.
             </p>
-            <p class="mb-4">At its core, VR2 works by centralizing all of your applications, files, and collaborative tools around a single, familiar ecosystem: <strong class="text-blue-600">Google Workspace</strong>. We then build powerful, <strong class="text-blue-600">custom web applications</strong> that are precisely tailored to your unique business needs. This strategic approach allows us to:</p>
+            <p class="mb-4 text-center">At its core, VR2 works by centralizing all of your applications, files, and collaborative tools around a single, familiar ecosystem: <strong class="text-blue-600">Google Workspace</strong>. We then build powerful, <strong class="text-blue-600">custom web applications</strong> that are precisely tailored to your unique business needs. This strategic approach allows us to:</p>
+            <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
             <ul class="list-disc list-inside space-y-2 mb-6">
                 <li><strong class="font-semibold">Eliminate Operational Friction:</strong> By unifying your digital environment, we remove the need to constantly switch between different programs, reducing wasted time and improving focus.</li>
                 <li><strong class="font-semibold">Create Unique Competitive Advantages:</strong> Our tailor-made solutions automate your most critical, and often manual, processes. We build applications that are perfectly suited to your specific workflows, giving you an edge over competitors who are stuck with generic, off-the-shelf software.</li>
                 <li><strong class="font-semibold">Accelerate Your Growth:</strong> Our proven S-Curve development model ensures you see rapid, tangible results from day one, with a clear roadmap for long-term, sustainable innovation.</li>
-            </ul>
+            </ul></div>
         </section>
 
         <hr class="border-t border-gray-200 my-10">
@@ -212,20 +200,20 @@
 
         <section class="mb-10 text-gray-700 leading-relaxed">
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm text-gray-600 mt-12">
-                <div>
-                    <h3 class="font-bold text-gray-800 text-base mb-2">1. The Start Phase</h3>
+                <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+                    <h3 class="text-xl font-bold mb-2">1. The Start Phase</h3>
                     <p>The initial discovery phase. We analyze your current digital environment and identify key pain points and opportunities for improvement. This corresponds to the Flat Audit phase (2-5 weeks).</p>
                 </div>
-                <div>
-                    <h3 class="font-bold text-gray-800 text-base mb-2">2. The Growth Phase</h3>
+                <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+                    <h3 class="text-xl font-bold mb-2">2. The Growth Phase</h3>
                     <p>The rapid deployment phase where you experience the first wave of transformation with a quick, customized web application. This corresponds to the Curb S phase (1-2 months).</p>
                 </div>
-                <div>
-                    <h3 class="font-bold text-gray-800 text-base mb-2">3. The Scale Phase</h3>
+                <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+                    <h3 class="text-xl font-bold mb-2">3. The Scale Phase</h3>
                     <p>The deep, tailored development phase where we build out a complete suite of custom applications and fully integrate your systems. This corresponds to the Ramping Area phase (8-24 months).</p>
                 </div>
-                <div>
-                    <h3 class="font-bold text-gray-800 text-base mb-2">4. The Maturity Phase</h3>
+                <div class="card-hover bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+                    <h3 class="text-xl font-bold mb-2">4. The Maturity Phase</h3>
                     <p>The state of sustained, long-term success. We transition to a strategic partnership, providing ongoing support and continuous optimization. This corresponds to the Flat Top phase (many years).</p>
                 </div>
             </div>
@@ -239,36 +227,35 @@
             <p class="font-semibold text-blue-600">We look forward to the possibility of working with you to build a more efficient, agile, and innovative future.</p>
         </section>
     </div><br><br>
-<div class="flex justify-between items-start bg-blue-600 text-white px-4 py-3">
-    <div class="w-1/2">
-      <h3 class="text-base font-semibold">PARIS</h3>
-      <p class="text-sm"><a href="mailto:paris@vr2.in" class="text-white">paris@vr2.in</a></p>
-    </div>
-    <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
-      <p>142, rue de Clignancourt<br>75018 Paris<br>France</p>
-    </div>
-  </div>
 
-  <div class="flex justify-between items-start bg-red-600 text-white px-4 py-3">
-    <div class="w-1/2">
-      <h3 class="text-base font-semibold">CHENNAI</h3>
-      <p class="text-sm"><a href="mailto:chennai@vr2.in" class="text-white">chennai@vr2.in</a></p>
+    <div class="flex justify-between items-start bg-blue-600 text-white px-4 py-3">
+        <div class="w-1/2">
+            <h3 class="text-base font-semibold">PARIS</h3>
+            <p class="text-sm"><a href="mailto:paris@vr2.in" class="text-white">paris@vr2.in</a></p>
+        </div>
+        <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
+            <p>142, rue de Clignancourt<br>75018 Paris<br>France</p>
+        </div>
     </div>
-    <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
-      <p>KRM Plaza South, Tower B, 8th Floor<br>No.2, Harrington Road, Chetpet<br>600031, Chennai TN, India</p>
-    </div>
-  </div>
 
-  <div class="flex justify-between items-start bg-yellow-400 text-black px-4 py-3">
-    <div class="w-1/2">
-      <h3 class="text-base font-semibold">HONG KONG</h3>
-      <p class="text-sm"><a href="mailto:hongkong@vr2.in" class=" text-black">hongkong@vr2.in</a></p>
+    <div class="flex justify-between items-start bg-red-600 text-white px-4 py-3">
+        <div class="w-1/2">
+            <h3 class="text-base font-semibold">CHENNAI</h3>
+            <p class="text-sm"><a href="mailto:chennai@vr2.in" class="text-white">chennai@vr2.in</a></p>
+        </div>
+        <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
+            <p>KRM Plaza South, Tower B, 8th Floor<br>No.2, Harrington Road, Chetpet<br>600031, Chennai TN, India</p>
+        </div>
     </div>
-    <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
-      <p>6/F, Connaught Commercial Building<br>185 Wanchai Road<br>Hong Kong</p>
-    </div>
-  </div>
-</div>
 
+    <div class="flex justify-between items-start bg-yellow-400 text-black px-4 py-3">
+        <div class="w-1/2">
+            <h3 class="text-base font-semibold">HONG KONG</h3>
+            <p class="text-sm"><a href="mailto:hongkong@vr2.in" class="text-black">hongkong@vr2.in</a></p>
+        </div>
+        <div class="w-1/2 text-right text-xs sm:text-sm leading-snug">
+            <p>6/F, Connaught Commercial Building<br>185 Wanchai Road<br>Hong Kong</p>
+        </div>
+    </div>
 </body>
 </html>
