@@ -65,17 +65,20 @@
             100% { transform: rotate(360deg); }
         }
   /* VR Finance banner styles */
-  .external-banner { color: #fff; }
-  /* Make banner fill the viewport */
-  .external-banner .banner-inner { max-width:1200px; margin:0 auto; padding:28px; display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap; min-height:100vh; }
-  .external-banner .banner-text { flex:1; min-width:240px; }
-  .external-banner .banner-cta { background:#fff; color:#0f172a; padding:12px 20px; border-radius:8px; font-weight:700; display:inline-block; margin-top:12px; text-decoration:none; }
-  .external-banner .banner-label { font-weight:700; opacity:0.95; font-size:0.9rem; }
-  /* Video wrapper used below the banner */
+  .external-banner { color: #fff; height:25vh; display:flex; align-items:center; }
+  /* Banner inner fills the banner container */
+  .external-banner .banner-inner { max-width:1200px; margin:0 auto; padding:12px 28px; display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap; height:100%; }
+  .external-banner .banner-text { flex:1; min-width:220px; overflow:hidden; }
+  .external-banner .banner-title { font-size:1.25rem; font-weight:800; line-height:1; margin-top:4px; }
+  .external-banner .banner-desc { font-size:0.95rem; margin-top:6px; color:rgba(255,255,255,0.95); max-width:780px; }
+  .external-banner .banner-cta { background:#fff; color:#0f172a; padding:8px 12px; border-radius:8px; font-weight:700; display:inline-block; margin-top:8px; text-decoration:none; font-size:0.9rem; }
+  .external-banner .banner-label { font-weight:700; opacity:0.95; font-size:0.8rem; }
+  /* Video wrapper (kept for potential reuse) */
   .video-wrapper { position:relative; width:100%; max-width:1000px; margin:0 auto; padding-bottom:56.25%; height:0; }
   .video-wrapper iframe{ position:absolute; top:0; left:0; width:100%; height:100%; border:0; border-radius:8px; }
-  @media (max-width:1024px){ .external-banner .banner-inner{padding:22px;} }
-  @media (max-width:768px){ .external-banner .banner-inner{flex-direction:column; align-items:flex-start; justify-content:center; min-height:70vh;} .video-wrapper{max-width:100%; width:100%} }
+  @media (max-width:1024px){ .external-banner .banner-inner{padding:10px 22px;} }
+  /* On small screens keep the banner compact and stack text if needed */
+  @media (max-width:768px){ .external-banner { height:25vh; } .external-banner .banner-inner{flex-direction:column; align-items:flex-start; justify-content:center; padding-top:8px; padding-bottom:8px;} .video-wrapper{display:none} }
         
     </style>
 </head>
@@ -193,24 +196,14 @@
           <div class="banner-inner">
             <div class="banner-text">
               <div class="banner-label">Our other Business Unit</div>
-              <div class="text-3xl md:text-5xl font-extrabold">VR Finance</div>
-              <p class="mt-4 text-base md:text-lg max-w-xl">Specialized financial products and services from our sister company. Learn more and explore offerings tailored for fast-scaling companies.</p>
+              <div class="banner-title">VR Finance</div>
+              <p class="banner-desc">Specialized financial products and services from our sister company. Learn more and explore offerings tailored for fast-scaling companies.</p>
               <a href="https://ventureneable.com" target="_blank" rel="noopener noreferrer" class="banner-cta">Visit VR Finance</a>
             </div>
           </div>
         </section>
 
         <main>
-          <!-- Video section placed directly below the fullscreen banner -->
-          <section class="py-12 bg-white">
-            <div class="container mx-auto px-6">
-              <div class="max-w-4xl mx-auto">
-                <div class="video-wrapper" role="region" aria-label="VR Finance introduction video">
-                  <iframe src="https://www.youtube.com/embed/GoeVnGw8YFY" title="VR Finance video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-              </div>
-            </div>
-          </section>
         <section class="py-20 md:py-32 bg-white">
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">Don't let standard software <br class="hidden md:inline"> dictate your growth.</h1>
